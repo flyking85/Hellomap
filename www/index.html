@@ -1,91 +1,85 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Bi Tuvalet</title>
+    
+    <script src="js/jquery.js"></script>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <script type="text/javascript" src="cordova.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/common.css" />
-    <link rel="stylesheet" type="text/css" href="./css/index.css" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' gap:; script-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; object-src *; style-src 'self' data: 'unsafe-inline' *; img-src 'self' data:; media-src 'self' data:; font-src 'self' data:; connect-src *">
-</head>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&amp;subset=latin-ext" rel="stylesheet">
 
-<body>
-    <div id="header" style="height: 70px;padding-bottom: 20px;line-height:30px">
+        <link rel="stylesheet" type="text/css" href="css/fontawesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
 
-      <h3 style="background-image:url(./images/logo.png);height:70px;background-repeat:no-repeat;padding-left:60px"><span style="white-space: nowrap;float:left;">Cordova GoogleMaps plugin</span><span style="white-space: nowrap;float:left;"> for iOS and Android</span></h3>
-    </div>
-    <div id="contentView">
-        <div id="contentsFrame" style="padding-top:100px">
-            <h2>Classes</h2>
-            <table class="reference">
-                <tr>
-                    <th><a href="./Map/index.html">Map</a></th>
-                    <td>Generate a map instance using <span class="highlight">plugin.google.maps.getMap()</span>.</td>
-                </tr>
-                <tr>
-                    <th><a href="./Marker/index.html">Marker</a></th>
-                    <td>Marker represents geological location on map.</td>
-                </tr>
-                <tr>
-                    <th><a href="./HtmlInfoWindow/index.html">HtmlInfoWindow</a></th>
-                    <td>Display HTML infoWindow</td>
-                </tr>
-                <tr>
-                    <th><a href="./Polyline/index.html">Polyline</a></th>
-                    <td>Draw a line on the map.</td>
-                </tr>
-                <tr>
-                    <th><a href="./Polygon/index.html">Polygon</a></th>
-                    <td>Draw a polygonal area on the map.</td>
-                </tr>
-                <tr>
-                    <th><a href="./Circle/index.html">Circle</a></th>
-                    <td>Draw a curcle on the map.</td>
-                </tr>
-                <tr>
-                    <th><a href="./GroundOverlay/index.html">GroundOverlay</a></th>
-                    <td>Put your image on the specific bounds of the map.</td>
-                </tr>
-                <tr>
-                    <th><a href="./TileOverlay/index.html">TileOverlay</a></th>
-                    <td>Display your tile image.</td>
-                </tr>
-                <tr>
-                    <th>KmlOverlay</th>
-                    <td><span class="highlight">Not ready yet</span> Load a kml file, then generate overlays automatically.</td>
-                </tr>
-                <tr>
-                    <th><a href="./Geocoder/index.html">Geocoder</a></th>
-                    <td>Convert from address or landscape names to latitude/longitude (geocoding), and from latitude/longitude to address (reverse geoding). </td>
-                </tr>
-                <tr>
-                    <th><a href="./Environment/index.html">Environment</a></th>
-                    <td>Sets the environment parameters, such as background color.</td>
-                </tr>
-            </table>
-            <h2>Utilities</h2>
-            <table class="reference">
-                <tr>
-                    <th><a href="./encoding/index.html">encoding</a></th>
-                    <td>Utilities for polyline encoding and decoding.</td>
-                </tr>
-                <tr>
-                    <th><a href="./spherical/index.html">spherical</a></th>
-                    <td>Utility functions for computing geodesic angles, distances and areas.</td>
-                </tr>
-            </table>
-<!--
-            <h2>Demo</h2>
-            <table class="reference">
-                <tr>
-                    <th><a href="./Demo/index.html">Demo</a></th>
-                    <td>You can see the demo codes</td>
-                </tr>
-            </table>
--->
-        </div>
-    </div>
-</body>
+    <body>
 
+<div class="loader">
+    <img class="logo" src="images/logo.png">
+    <img class="mavigen" src="images/bymavigen.png">
+</div>
+
+        <style type="text/css">
+            /* Set a size for our map container, the Google Map will take up 100% of this container */
+            #map {
+                width: 100% !important;
+                height: 100% !important;
+                position:fixed !important;
+                top:0;left:0;
+                z-index:0;
+            }
+        </style>
+        
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+        
+        <script type="text/javascript">
+            setTimeout(function(){ $('.loader').fadeOut(); }, 3000);
+
+            // When the window has finished loading create our google map below
+            google.maps.event.addDomListener(window, 'load', init);
+        
+            function init() {
+                // Basic options for a simple Google Map
+                // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+                var mapOptions = {
+                    // How zoomed in you want the map to start at (always required)
+                    zoom: 17,
+
+                    // The latitude and longitude to center the map (always required)
+                    center: new google.maps.LatLng(41.0148327,28.646092), // New York
+
+                    // How you would like to style the map. 
+                    // This is where you would paste any style found on Snazzy Maps.
+                    styles: [{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]
+                };
+
+                // Get the HTML DOM element that will contain your map 
+                // We are using a div with id="map" seen below in the <body>
+                var mapElement = document.getElementById('map');
+
+                // Create the Google Map using our element and options defined above
+                var map = new google.maps.Map(mapElement, mapOptions);
+
+                // Let's also add a marker while we're at it
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(41.0148327,28.646092),
+                    map: map,
+                    title: 'Snazzy!'
+                });
+            }
+        </script>
+        <div id="map" style="width:200px;height:200px;"></div>
+
+
+<!-- content -->
+    <footer>
+        <a href="addAdress.html" class="addNew"><i class="fa fa-plus"></i> <span>Ekle</span></a>
+        <a href="sayfaAdresiGor.html" class="near"><span>En Yakın Tuvalet</span> <i class="fa fa-map-marker"></i></a>
+        <div class="clearfix"></div>
+    </footer>
+<!-- footer -->
+
+    <!-- <script type="text/javascript" src="cordova.js"></script>-->
+    </body>
 </html>
