@@ -7,7 +7,7 @@
         <title>Bi Tuvalet</title>
 
     <script src="js/jquery.js"></script>
-    <script type="text/javascript" src="../cordova.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&amp;subset=latin-ext" rel="stylesheet">
 
@@ -17,7 +17,10 @@
 
     <body>
 
-
+<div class="loader">
+    <img class="logo" src="images/logo.png">
+    <img class="mavigen" src="images/bymavigen.png">
+</div>
 
         <style type="text/css">
             /* Set a size for our map container, the Google Map will take up 100% of this container */
@@ -30,6 +33,38 @@
             }
         </style>
 
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+
+        <script type="text/javascript">
+            setTimeout(function(){ $('.loader').fadeOut(); }, 3000);
+
+            document.addEventListener("deviceready", function() {
+              var pTags = document.getElementsByClassName("demo");
+              for (var i = 0; i < pTags.length; i++) {
+                executeCode(pTags[i], 1000 * i);
+              }
+            }, false);
+
+            function executeCode(pTag, loadDelay) {
+              var code = pTag.getElementsByTagName("pre")[0];
+
+              function mapReady() {
+                var div = document.getElementById("map_canvas1");
+                var map = plugin.google.maps.Map.getMap(div);
+                map.one(plugin.google.maps.event.MAP_READY, function() {
+                console.log("--> map_canvas1 : ready.");
+                });
+              }
+              //console.log(code.innerText);
+
+              // In order to prevent freezing the device (because too much work),
+              // waiting kind of times is better when you use the multiple maps in one page.
+              setTimeout(function() {
+                mapReady();
+              }, loadDelay);
+            }
+
+        </script>
         <div id="map_canvas1" style="width:200px;height:200px;"></div>
 
 
@@ -42,11 +77,7 @@
 <!-- footer -->
 
     <script type="text/javascript">
-      var div = document.getElementById("map_canvas1");
-      var map = plugin.google.maps.Map.getMap(div);
-      map.one(plugin.google.maps.event.MAP_READY, function() {
-      console.log("--> map_canvas1 : ready.");
-      });
+
     </script>
     </body>
 </html>
