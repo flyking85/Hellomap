@@ -42,7 +42,7 @@ function executeCode() {
   alert(JSON.stringify(msg));
   };
 
-  var button = div.getElementsById('enyakin')[0];
+  var button = div.getElementsByTagName('button')[0];
   button.addEventListener('click', function() {
   map.clear();
   map.getMyLocation(onSuccess, onError);
